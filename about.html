@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — Balansa Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fdfbf7;
+            --charcoal: #1c1917;
+            --muted: #57534e;
+            --stone: #e7e5e4;
+            --dusty-pink: #E8B4B4;
+            --clover-green: #2b5c2a;
+            --page-max: 1300px;
+            --side-pad-desktop: clamp(36px, 7vw, 90px);
+            --side-pad-mobile: 20px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .page-width {
+            max-width: var(--page-max);
+            margin-inline: auto;
+            padding-inline: var(--side-pad-desktop);
+        }
+
+        /* ── HEADER / NAV ── */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(253, 251, 247, 0.96);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--stone);
+        }
+        header .page-width {
+            display: flex; justify-content: space-between; align-items: center;
+            min-height: 72px;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600; font-size: 1.25rem;
+            letter-spacing: -0.01em; color: var(--charcoal);
+            text-decoration: none; white-space: nowrap;
+        }
+        .logo span { font-weight: 300; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a {
+            text-decoration: none; color: var(--muted);
+            font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em;
+            position: relative; padding-bottom: 3px; transition: color 0.2s;
+        }
+        .nav-links a.active { color: var(--charcoal); }
+        .nav-links a::after {
+            content: ''; position: absolute; left: 0; bottom: 0;
+            width: 100%; height: 2px; background: var(--dusty-pink);
+            transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--charcoal); }
+        .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+        .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-shrink: 0; }
+        .mobile-toggle span { display: block; width: 22px; height: 1.5px; background: var(--charcoal); margin: 5px 0; transition: all 0.3s ease; }
+
+        /* ── PAGE STYLING ── */
+        section {
+            padding-block: clamp(64px, 10vw, 120px);
+            border-top: 1px solid var(--stone);
+        }
+        section:first-of-type { border-top: none; }
+
+        .eyebrow {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em;
+            color: var(--clover-green); margin-bottom: 1.2rem; font-weight: 500;
+        }
+        
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 3.5rem); line-height: 1.1;
+            font-weight: 400; margin-bottom: 2.5rem; max-width: 800px;
+        }
+        h2 .emphasis { font-style: italic; font-weight: 600; color: var(--muted); }
+
+        .grid-2 {
+            display: grid; grid-template-columns: 0.8fr 1.2fr;
+            gap: clamp(32px, 5vw, 72px); align-items: start;
+        }
+        
+        .lead-text {
+            font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+            font-weight: 300; line-height: 1.7; color: #44403c;
+        }
+        .lead-text p { margin-bottom: 1.5rem; }
+
+        .cta-link {
+            display: inline-flex; align-items: center;
+            color: var(--clover-green); text-decoration: none;
+            font-weight: 500; font-size: 0.95rem; text-transform: uppercase;
+            letter-spacing: 0.05em; position: relative; padding-bottom: 2px;
+            transition: all 0.3s; gap: 8px; margin-top: 1rem;
+        }
+        .cta-link::after {
+            content: ''; position: absolute; left: 0; bottom: 0;
+            width: 100%; height: 2px; background: var(--dusty-pink);
+            transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+        }
+        .cta-link:hover { gap: 14px; color: #1a3d1a; }
+        .cta-link:hover::after { transform: scaleX(1); }
+
+        /* Belief Cards */
+        .beliefs-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+        .belief-card {
+            background: linear-gradient(145deg, #EDEAE4 0%, var(--cream) 100%);
+            border: 1px solid rgba(231, 229, 228, 0.8);
+            padding: 2rem; border-radius: 16px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .belief-card:hover { transform: translateY(-4px); }
+        .belief-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; font-style: italic; font-weight: 600;
+            color: var(--clover-green); margin-bottom: 0.8rem;
+        }
+
+        /* Bios */
+        .bio-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: clamp(32px, 5vw, 64px);
+        }
+        .bio-card {
+            display: flex; flex-direction: column; gap: 1.5rem;
+        }
+        .bio-image-wrap {
+            aspect-ratio: 4 / 5; background: var(--stone);
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 20px 40px -10px rgba(45, 42, 38, 0.1);
+        }
+        .bio-image-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .bio-image-wrap img.alex { object-position: 30% 62%; }
+        .bio-image-wrap img.tessa { object-position: center; }
+        .bio-image-wrap img.harper { object-position: 50% 34%; }
+        .bio-card:hover .bio-image-wrap img { transform: scale(1.03); }
+        .bio-info h4 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .bio-info .role { color: var(--clover-green); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; display: block;}
+        .bio-info p { font-size: 0.95rem; color: var(--muted); font-weight: 300; }
+        .bio-info .credential { color: var(--charcoal); font-size: 0.9rem; font-weight: 400; margin-bottom: 0.7rem; }
+
+        /* Representative engagements keep the proof concrete without inventing client claims. */
+        .case-study-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(24px, 4vw, 48px); }
+        .case-study { border-top: 2px solid var(--clover-green); padding-top: 1.5rem; }
+        .case-study .case-label { color: var(--clover-green); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+        .case-study h3 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 400; line-height: 1.15; margin: 1rem 0; }
+        .case-study p { color: var(--muted); font-weight: 300; }
+
+        /* ── ANIMATIONS ── */
+        .fade-in { opacity: 1; transform: none; transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .page-width { padding-inline: var(--side-pad-mobile); }
+            .nav-links { display: none; }
+            .logo { font-size: 1.05rem; }
+            .mobile-toggle { display: block; }
+            header .page-width { position: relative; }
+            header .page-width.open .nav-links {
+                display: flex; flex-direction: column; position: absolute;
+                top: 100%; left: var(--side-pad-mobile); right: var(--side-pad-mobile);
+                background: rgba(253, 251, 247, 0.98); padding: 1.5rem;
+                gap: 1.2rem; border: 1px solid var(--stone); border-top: none;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            }
+            .grid-2 { grid-template-columns: 1fr; }
+            .bio-grid { grid-template-columns: 1fr; }
+            .case-study-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .bio-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ HEADER ═══════════ -->
+    <header>
+        <div class="page-width">
+            <a href="index.html" class="logo">Balansa <span>Consulting</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blogs.html">Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <!-- ═══════════ WHAT WE DO ═══════════ -->
+    <section>
+        <div class="page-width">
+            <div class="grid-2">
+                <div class="fade-in">
+                    <div class="eyebrow">What We Do</div>
+                </div>
+                <div class="lead-text fade-in">
+                    <h2>We bridge the gap between organizational needs and <span class="emphasis">technological possibility.</span></h2>
+                    <p>AI promises to upend established ways of doing business, but few organizations have the capacity to juggle both the latest AI advancements and their own business priorities. Balansa bridges that gap.</p>
+                    <p>We help leaders chart the right course. In our work, people come first: human knowledge, capabilities, and personalities are the bedrock of sustainable success.</p>
+                    <a href="#team" class="cta-link">Meet the people behind the work <span>&rarr;</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ WHAT WE BELIEVE ═══════════ -->
+    <section>
+        <div class="page-width">
+            <div class="fade-in" style="margin-bottom: 3rem;">
+                <div class="eyebrow">What We Believe</div>
+                <h2>Our core principles.</h2>
+            </div>
+            <div class="beliefs-grid fade-in">
+                <div class="belief-card">
+                    <h3>People are the point.</h3>
+                    <p style="color: var(--muted); font-weight: 300;">We are thoughtful about how our choices impact others.</p>
+                </div>
+                <div class="belief-card">
+                    <h3>Jobs are not just tasks.</h3>
+                    <p style="color: var(--muted); font-weight: 300;">Work exists in service of our responsibilities to other people.</p>
+                </div>
+                <div class="belief-card">
+                    <h3>Technologies are tools.</h3>
+                    <p style="color: var(--muted); font-weight: 300;">You control what you choose to do with it and how you use it.</p>
+                </div>
+                <div class="belief-card">
+                    <h3>We do our best, as people.</h3>
+                    <p style="color: var(--muted); font-weight: 300;">We hold ourselves accountable, but accept that we are not perfect.</p>
+                </div>
+            </div>
+            <div style="margin-top: 3rem;" class="fade-in">
+                <a href="#team" class="cta-link">Meet the people behind the work <span>&rarr;</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ WHO WE ARE (BIOS) ═══════════ -->
+    <section id="team">
+        <div class="page-width">
+            <div class="fade-in" style="margin-bottom: 4rem;">
+                <div class="eyebrow">Who We Are</div>
+                <h2>Good work starts with <span class="emphasis">knowing people.</span></h2>
+            </div>
+            <div class="bio-grid">
+                <div class="bio-card fade-in">
+                    <div class="bio-image-wrap">
+                        <img src="alex.jpeg" class="alex" alt="Alex smiling outdoors">
+                    </div>
+                    <div class="bio-info">
+                        <h4>Alex</h4>
+                        <span class="role">AI &amp; Responsible Systems</span>
+                        <p class="credential">PhD in AI, Northwestern University</p>
+                        <p>Alex focuses on designing and evaluating AI systems for safe, responsible human impact. He is currently a knowledge engineer at an AI startup in Chicago.</p>
+                    </div>
+                </div>
+                <div class="bio-card fade-in">
+                    <div class="bio-image-wrap">
+                        <img src="tessa.png" class="tessa" alt="Tessa smiling in a red blazer">
+                    </div>
+                    <div class="bio-info">
+                        <h4>Tessa Constantine</h4>
+                        <span class="role">People Insights &amp; Organizational Strategy</span>
+                        <p class="credential">Master's in Psychology, Columbia University</p>
+                        <p>Tessa is a director of thought leadership at PMI, where she helps clients turn people insights into action that builds team alignment and unlocks organizational potential.</p>
+                    </div>
+                </div>
+                <div class="bio-card fade-in">
+                    <div class="bio-image-wrap">
+                        <img src="hp_2.jpg" class="harper" alt="Harper smiling in a blue shirt">
+                    </div>
+                    <div class="bio-info">
+                        <h4>Harper Pack</h4>
+                        <span class="role">Applied AI &amp; Experiential Learning</span>
+                        <p class="credential">MS in AI, Northwestern University</p>
+                        <p>Harper leads experiential learning in applied AI at Northwestern University. He has developed and consulted on AI applications in law, healthcare, and education.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ REPRESENTATIVE ENGAGEMENTS ═══════════ -->
+    <section>
+        <div class="page-width">
+            <div class="fade-in" style="margin-bottom: 3rem;">
+                <div class="eyebrow">Representative Engagements</div>
+                <h2>Where thoughtful strategy becomes <span class="emphasis">useful action.</span></h2>
+            </div>
+            <div class="case-study-grid">
+                <article class="case-study fade-in">
+                    <span class="case-label">AI opportunity assessment</span>
+                    <h3>Making a promising idea concrete.</h3>
+                    <p>We work with leaders and stakeholders to identify where AI could genuinely improve a workflow, what human judgment must stay close to the work, and what a responsible first experiment would require.</p>
+                </article>
+                <article class="case-study fade-in">
+                    <span class="case-label">Team alignment and change</span>
+                    <h3>Turning people insights into movement.</h3>
+                    <p>We help teams translate what they know about their people into a shared direction, practical decisions, and the conditions for new ways of working to take hold.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const toggle = document.querySelector('.mobile-toggle');
+        const headerInner = document.querySelector('header .page-width');
+        if (toggle) toggle.addEventListener('click', () => headerInner.classList.toggle('open'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} — Balansa Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --cream: #fdfbf7; --charcoal: #1c1917; --muted: #57534e; --stone: #e7e5e4; --dusty-pink: #E8B4B4; --clover-green: #2b5c2a; --page-max: 900px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        header { border-bottom: 1px solid var(--stone); }
+        header .inner { max-width: 1300px; min-height: 72px; margin: auto; padding: 0 clamp(20px, 7vw, 90px); display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: var(--charcoal); font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600; text-decoration: none; }
+        .logo span { font-weight: 300; }
+        .back-link { color: var(--clover-green); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; }
+        main { max-width: var(--page-max); margin: auto; padding: clamp(72px, 12vw, 140px) 20px; }
+        .eyebrow { color: var(--clover-green); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.25rem; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.8rem); font-weight: 400; line-height: 1.08; max-width: 780px; margin-bottom: 1.5rem; }
+        .dek { color: var(--muted); font-size: 1.2rem; font-weight: 300; max-width: 680px; margin-bottom: 1.5rem; }
+        .meta { color: var(--muted); font-size: 0.9rem; border-bottom: 1px solid var(--stone); padding-bottom: 2rem; margin-bottom: 3rem; }
+        .content { max-width: 680px; font-size: 1.08rem; font-weight: 300; }
+        .content h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; line-height: 1.2; margin: 2.5rem 0 1rem; }
+        .content p { margin-bottom: 1.4rem; }
+        .content a { color: var(--clover-green); }
+        @media (max-width: 600px) { .back-link { font-size: 0.72rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="inner">
+            <a href="../index.html" class="logo">Balansa <span>Consulting</span></a>
+            <a href="../blogs.html" class="back-link">All insights <span aria-hidden="true">&rarr;</span></a>
+        </div>
+    </header>
+    <main>
+        <div class="eyebrow">{{ page.category | default: 'Insight' }}</div>
+        <h1>{{ page.title }}</h1>
+        <p class="dek">{{ page.description }}</p>
+        <div class="meta">{{ page.author | default: 'Balansa team' }} <span aria-hidden="true">&middot;</span> {{ page.date | date: "%B %-d, %Y" }}</div>
+        <article class="content">{{ content }}</article>
+    </main>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balansa Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fdfbf7;
+            --charcoal: #1c1917;
+            --muted: #57534e;
+            --stone: #e7e5e4;
+            --dusty-pink: #E8B4B4;
+            --clover-green: #2b5c2a;
+            --page-max: 1300px;
+            --side-pad-desktop: clamp(36px, 7vw, 90px);
+            --side-pad-mobile: 20px;
+        }
+        /* ── RIGHT-HAND IMAGE: Museum Mat ── */
+        .image-column {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-mark {
+            position: absolute;
+            right: -10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: min(600px, 90vw);
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .mark-frame img {
+            width: 150%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+/*            border-radius: 80 80 80 80;*/
+        }
+
+
+        .mark-frame {
+            width: min(380px, 70vw);
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(145deg, #EDEAE4 0%, #f5f3ef 100%);
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px -5px rgba(45, 42, 38, 0.07);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mark-frame:hover {
+            transform: translateY(-4px);
+        }
+
+        .mark-frame .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── CONTAINER ── */
+        .page-width {
+            max-width: var(--page-max);
+            margin-inline: auto;
+            padding-inline: var(--side-pad-desktop);
+        }
+
+        /* ── HEADER / NAV ── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(253, 251, 247, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--stone);
+        }
+
+        header .page-width {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 72px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 1.25rem;
+            letter-spacing: -0.01em;
+            color: var(--charcoal);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            font-weight: 300;
+            /* No extra margin—relies on the single word-space in HTML */
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            position: relative;
+            padding-bottom: 3px;
+            transition: color 0.2s;
+        }
+
+        /* Dusty-pink underline hover effect */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--dusty-pink);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--charcoal);
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            flex-shrink: 0;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: var(--charcoal);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* ── MAIN HERO ── */
+        main {
+            display: flex;
+            align-items: center;
+        }
+
+        main .page-width {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+            gap: clamp(32px, 5vw, 72px);
+            align-items: center;
+            min-height: calc(100vh - 72px);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        /* Prevent grid blow-out on narrow screens */
+        .content,
+        .image-column {
+            min-width: 0;
+            overflow-wrap: break-word;
+        }
+
+        .content {
+            max-width: 720px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 1.15;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            color: #1a1a1a;
+        }
+
+        .emphasis {
+            font-style: italic;
+            font-weight: 600;
+            color: var(--clover-green);
+            position: relative;
+        }
+
+        .lead {
+            font-size: clamp(1rem, 1.3vw + 0.4rem, 1.2rem);
+            max-width: 520px;
+            margin-bottom: 22px;
+            line-height: 1.7;
+            font-weight: 300;
+            color: #44403c;
+        }
+
+        .cta-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--stone);
+        }
+
+        .cta-section p {
+            font-size: clamp(0.98rem, 1.1vw + 0.35rem, 1.05rem);
+            color: var(--muted);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            max-width: 65ch;
+        }
+
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--clover-green);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            padding-bottom: 2px;
+            transition: all 0.3s;
+            gap: 8px;
+        }
+
+        .cta-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--dusty-pink);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-link:hover {
+            gap: 14px;
+            color: #1a3d1a;
+        }
+
+        .cta-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* ── RIGHT-HAND IMAGE (Organic shape from original) ── */
+        .image-column {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+/*
+        .organic-shape {
+            width: min(420px, 85vw);
+            aspect-ratio: 3 / 4;
+            background: linear-gradient(145deg, #EDEAE4 0%, var(--cream) 100%);
+            border-radius: 58% 42% 63% 37% / 49% 51% 48% 52%;
+            transition: border-radius 1.8s ease;
+            box-shadow: 0 20px 48px rgba(45, 42, 38, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .organic-shape:hover {
+            border-radius: 47% 53% 38% 62% / 54% 46% 55% 45%;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+        }
+*/
+
+        /* ── ANIMATIONS ── */
+        .fade-in {
+            opacity: 1;
+            transform: none;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .page-width {
+                padding-inline: var(--side-pad-mobile);
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .logo {
+                font-size: 1.05rem;
+            }
+
+            h1 {
+                font-size: clamp(2.3rem, 11vw, 3.6rem);
+            }
+
+            /* Mobile dropdown when menu is open */
+            header .page-width.open .nav-links {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: var(--side-pad-mobile);
+                right: var(--side-pad-mobile);
+                background: rgba(253, 251, 247, 0.98);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 1.5rem;
+                gap: 1.2rem;
+                border: 1px solid var(--stone);
+                border-top: none;
+                z-index: 99;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            main .page-width {
+                grid-template-columns: 1fr;
+                min-height: auto;
+                padding-top: clamp(56px, 8vw, 90px);
+                padding-bottom: clamp(72px, 10vw, 110px);
+                gap: 32px;
+            }
+
+            .image-column {
+                order: -1;
+            }
+
+            .organic-shape {
+                width: min(320px, 70vw);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ HEADER ═══════════ -->
+    <header>
+        <div class="page-width">
+            <a href="index.html" class="logo">Balansa <span>Consulting</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blogs.html">Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ═══════════ MAIN ═══════════ -->
+    <main>
+        <div class="page-width">
+            <div class="content fade-in">
+                <h1>What if work <span class="emphasis">worked better?</span></h1>
+                
+                <p class="lead">
+                    Balansa helps organizations focus on what matters. Our thoughtful approach empowers leaders with the confidence they need to navigate the solutions that work best for their teams.
+                </p>
+                
+                <div class="cta-section">
+                    <p>From artificial intelligence to business process improvement, we’re ready to discover solutions with and for you.</p>
+                    <a href="services.html" class="cta-link">Learn more <span>&rarr;</span></a>
+                </div>
+            </div>
+            
+            <div class="image-column fade-in">
+                <div class="mark-frame"> <!-- organic-shape -->
+                    <img src="clover_dark.png" alt="Balansa Consulting logo mark" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ═══════════ JS ═══════════ -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const toggle = document.querySelector('.mobile-toggle');
+        const headerInner = document.querySelector('header .page-width');
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                headerInner.classList.toggle('open');
+            });
+        }
+    </script>
+</body>
+</html>

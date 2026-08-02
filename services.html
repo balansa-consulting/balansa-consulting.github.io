@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services — Balansa Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fdfbf7;
+            --charcoal: #1c1917;
+            --muted: #57534e;
+            --stone: #e7e5e4;
+            --dusty-pink: #E8B4B4;
+            --clover-green: #2b5c2a;
+            --page-max: 1300px;
+            --side-pad-desktop: clamp(36px, 7vw, 90px);
+            --side-pad-mobile: 20px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .page-width {
+            max-width: var(--page-max);
+            margin-inline: auto;
+            padding-inline: var(--side-pad-desktop);
+        }
+
+        /* ── HEADER / NAV ── */
+        /* Same as About page */
+        header { position: sticky; top: 0; z-index: 100; background: rgba(253, 251, 247, 0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--stone); }
+        header .page-width { display: flex; justify-content: space-between; align-items: center; min-height: 72px; }
+        .logo { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 1.25rem; letter-spacing: -0.01em; color: var(--charcoal); text-decoration: none; white-space: nowrap; }
+        .logo span { font-weight: 300; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em; position: relative; padding-bottom: 3px; transition: color 0.2s; }
+        .nav-links a.active { color: var(--charcoal); }
+        .nav-links a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--dusty-pink); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+        .nav-links a:hover { color: var(--charcoal); }
+        .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+        .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-shrink: 0; }
+        .mobile-toggle span { display: block; width: 22px; height: 1.5px; background: var(--charcoal); margin: 5px 0; transition: all 0.3s ease; }
+
+        /* ── PAGE STYLING ── */
+        section { padding-block: clamp(64px, 10vw, 120px); border-top: 1px solid var(--stone); }
+        section:first-of-type { border-top: none; padding-top: clamp(80px, 12vw, 140px); }
+
+        .eyebrow { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--clover-green); margin-bottom: 1.2rem; font-weight: 500; }
+        
+        h1.hero { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); line-height: 1.1; font-weight: 400; margin-bottom: 1.5rem; }
+        h1.hero .emphasis { font-style: italic; font-weight: 600; color: var(--clover-green); }
+        
+        .intro-text { font-size: clamp(1.1rem, 1.4vw, 1.35rem); font-weight: 300; line-height: 1.7; color: #44403c; max-width: 700px; margin-bottom: 4rem; }
+
+        /* Service List */
+        .service-list { display: grid; grid-template-columns: 1fr; gap: clamp(20px, 3vw, 36px); max-width: 900px; }
+        .service-item {
+            display: grid; grid-template-columns: 80px 1fr;
+            gap: 32px; padding-bottom: clamp(20px, 3vw, 36px);
+            border-bottom: 1px solid var(--stone);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .service-item:last-child { border-bottom: none; }
+        .service-item:hover { transform: translateY(-4px); }
+
+        .service-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem; font-style: italic; font-weight: 600;
+            color: var(--dusty-pink);
+        }
+        
+        .service-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 400; margin-bottom: 0.65rem;
+        }
+        .service-content p { font-size: 1.1rem; font-weight: 300; line-height: 1.7; color: var(--muted); }
+
+        /* Closing Block */
+        .closing-block { background: linear-gradient(145deg, #EDEAE4 0%, var(--cream) 100%); border-radius: 20px; padding: clamp(40px, 6vw, 80px); margin-top: 4rem; border: 1px solid var(--stone); }
+        .closing-block h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.2; font-weight: 400; margin-bottom: 2rem; max-width: 800px; }
+        .closing-block h2 .emphasis { font-style: italic; color: var(--clover-green); }
+        .closing-block p { font-size: 1.1rem; font-weight: 300; line-height: 1.7; color: #44403c; max-width: 650px; margin-bottom: 2rem; }
+
+        .cta-link { display: inline-flex; align-items: center; color: var(--clover-green); text-decoration: none; font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; position: relative; padding-bottom: 2px; transition: all 0.3s; gap: 8px; }
+        .cta-link::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--dusty-pink); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+        .cta-link:hover { gap: 14px; color: #1a3d1a; }
+        .cta-link:hover::after { transform: scaleX(1); }
+
+        /* ── ANIMATIONS ── */
+        .fade-in { opacity: 1; transform: none; transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .page-width { padding-inline: var(--side-pad-mobile); }
+            .nav-links { display: none; }
+            .logo { font-size: 1.05rem; }
+            .mobile-toggle { display: block; }
+            header .page-width { position: relative; }
+            header .page-width.open .nav-links {
+                display: flex; flex-direction: column; position: absolute;
+                top: 100%; left: var(--side-pad-mobile); right: var(--side-pad-mobile);
+                background: rgba(253, 251, 247, 0.98); padding: 1.5rem;
+                gap: 1.2rem; border: 1px solid var(--stone); border-top: none;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            }
+            .service-item { grid-template-columns: 1fr; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ HEADER ═══════════ -->
+    <header>
+        <div class="page-width">
+            <a href="index.html" class="logo">Balansa <span>Consulting</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html" class="active">Services</a></li>
+                    <li><a href="blogs.html">Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <!-- ═══════════ SERVICES HERO ═══════════ -->
+    <section>
+        <div class="page-width">
+            <div class="fade-in">
+                <div class="eyebrow">Our Services</div>
+                <h1 class="hero">We help our clients in <span class="emphasis">three primary ways.</span></h1>
+            </div>
+            <div class="service-list fade-in">
+                <div class="service-item">
+                    <div class="service-number">01</div>
+                    <div class="service-content">
+                        <h3>Evaluating Opportunities</h3>
+                        <p>Through focus groups and interviews with your stakeholders, we build a clear picture of the opportunities that matter most.</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-number">02</div>
+                    <div class="service-content">
+                        <h3>Setting Vision</h3>
+                        <p>We help you evaluate possibilities so you can make informed, strategic choices about your priorities.</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-number">03</div>
+                    <div class="service-content">
+                        <h3>Managing Change</h3>
+                        <p>Sometimes you need more than just a good plan. We help set teams up for success as they implement new technologies and processes.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Closing Block -->
+            <div class="closing-block fade-in">
+                <h2>What this looks like for you will depend on <span class="emphasis">what you want.</span></h2>
+                <p>Working with only a few clients at a time, we devote our attention to understanding your needs before addressing them so no two engagements are entirely alike.</p>
+                <a href="contact.html" class="cta-link">Start a conversation <span>&rarr;</span></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const toggle = document.querySelector('.mobile-toggle');
+        const headerInner = document.querySelector('header .page-width');
+        if (toggle) toggle.addEventListener('click', () => headerInner.classList.toggle('open'));
+    </script>
+</body>
+</html>

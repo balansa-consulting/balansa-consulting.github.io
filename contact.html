@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Balansa Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --cream: #fdfbf7; --charcoal: #1c1917; --muted: #57534e; --stone: #e7e5e4; --dusty-pink: #E8B4B4; --clover-green: #2b5c2a; --page-max: 1300px; --side-pad: clamp(20px, 7vw, 90px); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .page-width { max-width: var(--page-max); margin-inline: auto; padding-inline: var(--side-pad); }
+        header { position: sticky; top: 0; z-index: 100; background: rgba(253, 251, 247, 0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--stone); }
+        header .page-width { min-height: 72px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: var(--charcoal); font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+        .logo span { font-weight: 300; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { color: var(--muted); font-size: 0.9rem; text-decoration: none; }
+        .nav-links a.active, .nav-links a:hover { color: var(--charcoal); }
+        .mobile-toggle { display: none; background: none; border: 0; padding: 8px; }
+        .mobile-toggle span { display: block; width: 22px; height: 1.5px; background: var(--charcoal); margin: 5px 0; }
+        main { padding-block: clamp(80px, 13vw, 160px); }
+        .contact-layout { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(40px, 8vw, 120px); align-items: start; }
+        .eyebrow { color: var(--clover-green); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.2rem; }
+        h1 { max-width: 620px; font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 400; line-height: 1.05; }
+        h1 em { color: var(--clover-green); font-weight: 600; }
+        .contact-copy { max-width: 620px; font-size: clamp(1.1rem, 1.4vw, 1.35rem); font-weight: 300; color: #44403c; line-height: 1.7; }
+        .contact-copy p { margin-bottom: 1.5rem; }
+        .contact-details { border-top: 1px solid var(--stone); margin-top: 2.5rem; padding-top: 1.5rem; }
+        .contact-details p { color: var(--muted); font-size: 0.95rem; }
+        .contact-details strong { color: var(--charcoal); font-weight: 500; }
+        @media (max-width: 768px) {
+            .logo { font-size: 1.05rem; }
+            .mobile-toggle { display: block; }
+            header .page-width { position: relative; }
+            .nav-links { display: none; }
+            header .page-width.open .nav-links { display: flex; flex-direction: column; position: absolute; top: 100%; left: var(--side-pad); right: var(--side-pad); gap: 1.2rem; padding: 1.5rem; background: rgba(253, 251, 247, 0.98); border: 1px solid var(--stone); border-top: 0; }
+            .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="page-width">
+            <a href="index.html" class="logo">Balansa <span>Consulting</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blogs.html">Insights</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+    <main>
+        <div class="page-width contact-layout">
+            <div>
+                <div class="eyebrow">Start a conversation</div>
+                <h1>Let's make work <em>work better.</em></h1>
+            </div>
+            <div class="contact-copy">
+                <p>Tell us what you are trying to understand, improve, or make possible. We will start with the people, decisions, and constraints that shape the work.</p>
+                <p>Balansa works with a small number of clients at a time, tailoring each engagement to the questions that matter most.</p>
+                <div class="contact-details">
+                    <p><strong>Contact details:</strong> add your preferred email or scheduling link here before publishing.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const toggle = document.querySelector('.mobile-toggle');
+        const headerInner = document.querySelector('header .page-width');
+        if (toggle) toggle.addEventListener('click', () => headerInner.classList.toggle('open'));
+    </script>
+</body>
+</html>

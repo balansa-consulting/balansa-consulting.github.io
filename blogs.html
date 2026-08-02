@@ -1,0 +1,278 @@
+---
+layout: none
+permalink: /blogs.html
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights — Balansa Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fdfbf7;
+            --charcoal: #1c1917;
+            --muted: #57534e;
+            --stone: #e7e5e4;
+            --dusty-pink: #E8B4B4;
+            --clover-green: #2b5c2a;
+            --page-max: 1300px;
+            --side-pad-desktop: clamp(36px, 7vw, 90px);
+            --side-pad-mobile: 20px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .page-width {
+            max-width: var(--page-max);
+            margin-inline: auto;
+            padding-inline: var(--side-pad-desktop);
+        }
+
+        /* ── HEADER / NAV ── */
+        header { position: sticky; top: 0; z-index: 100; background: rgba(253, 251, 247, 0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--stone); }
+        header .page-width { display: flex; justify-content: space-between; align-items: center; min-height: 72px; }
+        .logo { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 1.25rem; letter-spacing: -0.01em; color: var(--charcoal); text-decoration: none; white-space: nowrap; }
+        .logo span { font-weight: 300; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em; position: relative; padding-bottom: 3px; transition: color 0.2s; }
+        .nav-links a.active { color: var(--charcoal); }
+        .nav-links a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--dusty-pink); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+        .nav-links a:hover { color: var(--charcoal); }
+        .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+        .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-shrink: 0; }
+        .mobile-toggle span { display: block; width: 22px; height: 1.5px; background: var(--charcoal); margin: 5px 0; transition: all 0.3s ease; }
+
+        /* ── PAGE STRUCTURE ── */
+        section { padding-block: clamp(64px, 8vw, 100px); border-top: 1px solid var(--stone); }
+        section:first-of-type { border-top: none; padding-top: clamp(56px, 8vw, 90px); }
+
+        .eyebrow { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--clover-green); margin-bottom: 1.2rem; font-weight: 500; }
+        
+        h1.page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 4.5vw, 4rem);
+            line-height: 1.1; font-weight: 400;
+            max-width: 800px; margin-bottom: 1.5rem;
+        }
+        h1.page-title .emphasis { font-style: italic; font-weight: 600; color: var(--clover-green); }
+
+        .page-intro {
+            font-size: 1.2rem; font-weight: 300; line-height: 1.7;
+            color: var(--muted); max-width: 600px; margin-bottom: 4rem;
+        }
+
+        /* ── FEATURED POST ── */
+        .featured-post {
+            display: grid; grid-template-columns: 1.2fr 1fr;
+            gap: clamp(32px, 5vw, 64px); align-items: center;
+            padding-bottom: clamp(48px, 7vw, 80px);
+            border-bottom: 1px solid var(--stone);
+            margin-bottom: clamp(48px, 7vw, 80px);
+        }
+
+        .post-image-wrap {
+            aspect-ratio: 4 / 3;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -10px rgba(45, 42, 38, 0.1);
+            position: relative;
+            background: var(--stone);
+        }
+        .post-art {
+            width: 100%; height: 100%;
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .post-art::before,
+        .post-art::after {
+            content: '';
+            position: absolute;
+            border: 1px solid currentColor;
+            opacity: 0.45;
+        }
+        .post-art::before { inset: 12%; transform: rotate(-8deg); }
+        .post-art::after { inset: 25% 18%; transform: rotate(14deg); }
+        .post-art-featured {
+            color: var(--cream);
+            background: linear-gradient(125deg, var(--clover-green) 0 38%, #dfd6c8 38% 69%, var(--dusty-pink) 69%);
+        }
+        .post-art-process {
+            color: var(--clover-green);
+            background: linear-gradient(135deg, #e6eee3 0 46%, #c5d4bd 46% 72%, #f4eee4 72%);
+        }
+        .post-art-leadership {
+            color: #754d4d;
+            background: linear-gradient(145deg, #f3dcdc 0 42%, #e8b4b4 42% 68%, #f7eee7 68%);
+        }
+        .post-art-change {
+            color: var(--cream);
+            background: linear-gradient(135deg, var(--charcoal) 0 42%, #594f48 42% 69%, var(--clover-green) 69%);
+        }
+        .post-card:hover .post-art { transform: scale(1.03); }
+
+        .post-content { max-width: 500px; }
+        .tag {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+            color: var(--dusty-pink); font-weight: 500; margin-bottom: 1rem; display: block;
+        }
+        
+        h2.post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            line-height: 1.15; font-weight: 400; margin-bottom: 1rem;
+        }
+        h3.post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem; line-height: 1.2; font-weight: 400; margin-bottom: 0.8rem;
+        }
+
+        .post-excerpt { font-size: 1.05rem; font-weight: 300; line-height: 1.7; color: var(--muted); margin-bottom: 1.5rem; }
+        
+        .meta-row { display: flex; align-items: center; gap: 16px; margin-bottom: 1.5rem; }
+        .author { font-size: 0.9rem; font-weight: 500; color: var(--charcoal); }
+        .date { font-size: 0.85rem; color: var(--muted); }
+
+        .read-more {
+            display: inline-flex; align-items: center; color: var(--clover-green);
+            text-decoration: none; font-weight: 500; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            position: relative; padding-bottom: 2px; transition: all 0.3s; gap: 8px;
+        }
+        .read-more::after {
+            content: ''; position: absolute; left: 0; bottom: 0; width: 100%;
+            height: 2px; background: var(--dusty-pink);
+            transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+        }
+        .read-more:hover { gap: 14px; color: #1a3d1a; }
+        .read-more:hover::after { transform: scaleX(1); }
+
+        /* ── POST GRID ── */
+        .post-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(32px, 4vw, 48px);
+        }
+        .post-card { display: flex; flex-direction: column; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .post-card:hover { transform: translateY(-4px); }
+
+        /* ── ANIMATIONS ── */
+        .fade-in { opacity: 1; transform: none; transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: none; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .page-width { padding-inline: var(--side-pad-mobile); }
+            .nav-links { display: none; }
+            .logo { font-size: 1.05rem; }
+            .mobile-toggle { display: block; }
+            header .page-width { position: relative; }
+            header .page-width.open .nav-links {
+                display: flex; flex-direction: column; position: absolute;
+                top: 100%; left: var(--side-pad-mobile); right: var(--side-pad-mobile);
+                background: rgba(253, 251, 247, 0.98); padding: 1.5rem;
+                gap: 1.2rem; border: 1px solid var(--stone); border-top: none;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            }
+            .featured-post { grid-template-columns: 1fr; gap: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ HEADER ═══════════ -->
+    <header>
+        <div class="page-width">
+            <a href="index.html" class="logo">Balansa <span>Consulting</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="blogs.html" class="active">Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <!-- ═══════════ PAGE INTRO ═══════════ -->
+    <section>
+        <div class="page-width">
+            <div class="fade-in">
+                <div class="eyebrow">Insights & Ideas</div>
+                <h1 class="page-title">Notes on navigating the <span class="emphasis">future of work.</span></h1>
+                <p class="page-intro">Perspectives on artificial intelligence, process improvement, and building organizations that put people first.</p>
+            </div>
+        </div>
+    </section>
+
+    {% assign insight_posts = site.pages | where_exp: "page", "page.path contains 'blogs/'" | sort: "date" | reverse %}
+    {% assign featured_post = insight_posts.first %}
+
+    <!-- ═══════════ FEATURED POST ═══════════ -->
+    <section style="padding-top: 0;">
+        <div class="page-width">
+            <article class="featured-post fade-in">
+                <div class="post-image-wrap">
+                    <div class="post-art post-art-featured" aria-hidden="true"></div>
+                </div>
+                <div class="post-content">
+                    <span class="tag">{{ featured_post.category | default: 'Insight' }}</span>
+                    <h2 class="post-title">{{ featured_post.title }}</h2>
+                    <div class="meta-row">
+                        <span class="author">{{ featured_post.author | default: 'Balansa team' }}</span>
+                        <span class="date">&middot; {{ featured_post.date | date: "%B %-d, %Y" }}</span>
+                    </div>
+                    <p class="post-excerpt">{{ featured_post.description }}</p>
+                    <a href="{{ featured_post.url | relative_url }}" class="read-more">Read Article <span>&rarr;</span></a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ═══════════ POST GRID ═══════════ -->
+    <section style="padding-top: 0;">
+        <div class="page-width">
+            <div class="post-grid">
+                {% for post in insight_posts offset: 1 %}
+                <article class="post-card fade-in">
+                    <div class="post-image-wrap" style="aspect-ratio: 3 / 2;">
+                        <div class="post-art post-art-process" aria-hidden="true"></div>
+                    </div>
+                    <div style="padding-top: 1.5rem;">
+                        <span class="tag">{{ post.category | default: 'Insight' }}</span>
+                        <h3 class="post-title">{{ post.title }}</h3>
+                        <div class="meta-row" style="margin-bottom: 1rem;">
+                            <span class="author">{{ post.author | default: 'Balansa team' }}</span>
+                            <span class="date">&middot; {{ post.date | date: "%b %-d, %Y" }}</span>
+                        </div>
+                        <p class="post-excerpt" style="font-size: 0.95rem;">{{ post.description }}</p>
+                        <a href="{{ post.url | relative_url }}" class="read-more">Read <span>&rarr;</span></a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        const toggle = document.querySelector('.mobile-toggle');
+        const headerInner = document.querySelector('header .page-width');
+        if (toggle) toggle.addEventListener('click', () => headerInner.classList.toggle('open'));
+    </script>
+</body>
+</html>

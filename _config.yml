@@ -1,0 +1,5 @@
+exclude:
+  - blogs/README.md
+
+# Markdown files placed in blogs/ are published as individual insight pages.
+permalink: pretty
